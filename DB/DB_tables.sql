@@ -38,9 +38,16 @@ CREATE TABLE products (
 
 CREATE TABLE types (
     type_id int(10) unsigned NOT NULL AUTO_INCREMENT,
-    product_id int(10) unsigned NOT NULL,
     'type' VARCHAR(20) NOT NULL DEFAULT 'NONE',
     PRIMARY KEY (type_id)
+);
+
+CREATE TABLE product_types(
+    product_types_id int(10) unsigned NOT NULL AUTO_INCREMENT,
+    product_id int(10) unsigned NOT NULL,
+    type_id int(10) unsigned NOT NULL,
+    PRIMARY KEY (product_types_id)
+
 );
 
 CREATE TABLE comments (
