@@ -1,3 +1,8 @@
+CREATE DATABASE chooseme;
+
+USE chooseme;
+
+
 CREATE TABLE users (
     `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     user_photo LONGBLOB,
