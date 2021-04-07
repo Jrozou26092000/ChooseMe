@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
 public class testing {
 
-  @GetMapping(path="/all")
+  /*@GetMapping(path="/all")
   public @ResponseBody String getAllUsers() {
     // This returns a JSON or XML with the users
     return "Hola Mundo demo all";
-  }
+  }*/
 }

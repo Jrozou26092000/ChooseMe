@@ -16,12 +16,12 @@ public class UsersServiceImpl implements UsersService {
 	
 	@Override
 	public List<Users> findAllUsers() {
-		return usersRepository.findAll();
+		return (List<Users>) usersRepository.findAll();
 	}
 	
 	@Override
 	public Optional<Users> findUsersById(int id) {
-		Optional <Users> users = usersRepository.findById((long) id);
+		Optional <Users> users = usersRepository.findById( id);
 		return users;
 	}
 	
@@ -35,8 +35,8 @@ public class UsersServiceImpl implements UsersService {
 	
 	@Override
 	public String deleteUsers(int id) {
-		if(usersRepository.findById((long) id).isPresent()) {
-			usersRepository.deleteById((long) id);
+		if(usersRepository.findById( id).isPresent()) {
+			usersRepository.deleteById( id);
 			return "Usuario eliminado";
 		}
 		return "El usuario no existe";
@@ -45,7 +45,7 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public String updateUsers(Users usersUpdated) {
 		int num = usersUpdated.getId();
-		if(usersRepository.findById((long) num).isPresent()) {
+		if(usersRepository.findById( num).isPresent()) {
 			Users usersToUpdate = new Users();
 			usersToUpdate.setId(usersUpdated.getId());
 			usersToUpdate.setUser_name(usersUpdated.getUser_name());

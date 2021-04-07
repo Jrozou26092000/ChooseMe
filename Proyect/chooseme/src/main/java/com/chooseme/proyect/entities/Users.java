@@ -1,5 +1,7 @@
 package com.chooseme.proyect.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;	
 import javax.persistence.Entity;	
 import javax.persistence.GeneratedValue;	
@@ -11,30 +13,33 @@ import javax.persistence.Table;
 @Table(name = "Users")
 public class Users {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="user_id")
-	int id;
-	@Column(name= "user_photo_google")
-	String photo_url;
-	@Column(name="user_name")
-	String user_name;
-	@Column(name="email")
-	String email;
-	@Column(name="password")
-	String password;
-	@Column(name="active")
-	int active;
-	@Column(name="name")
-	String real_name;
-	@Column(name="lastname")
-	String lastname;
-	@Column(name="phone")
-	String phone;
-	@Column(name="points")
-	int points;
-	@Column(name="google_account")
-	String google_account;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 	
+	@Column(name= "user_photo_google")
+	private String photo_url;
+	@Column(name="user_name")
+	private String user_name;
+	@Column(name="email")
+	private String email;
+	@Column(name="password")
+	private String password;
+	@Column(name="active")
+	private int active;
+	@Column(name="name")
+	private String real_name;
+	@Column(name="lastname")
+	private String lastname;
+	@Column(name="phone")
+	private String phone;
+	@Column(name="points")
+	private int points;
+	@Column(name="google_account")
+	private String google_account;
+	
+
+	
+
 	public int getId() {
 		return id;
 	}
