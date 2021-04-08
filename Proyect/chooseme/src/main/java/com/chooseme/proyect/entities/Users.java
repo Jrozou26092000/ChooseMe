@@ -1,21 +1,25 @@
 package com.chooseme.proyect.entities;
 
 import java.io.Serializable;
+import java.sql.Blob;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;	
 import javax.persistence.Entity;	
 import javax.persistence.GeneratedValue;	
-import javax.persistence.GenerationType;	
-import javax.persistence.Id;	
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity	
 @Table(name = "Users")
 public class Users {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
 	
+	@Id
+	private int user_id;
+	
+	@Column(name="user_photo")
+	private Blob user_photo;
 	@Column(name= "user_photo_google")
 	private String photo_url;
 	@Column(name="user_name")
@@ -36,16 +40,23 @@ public class Users {
 	private int points;
 	@Column(name="google_account")
 	private String google_account;
+	@Column(name="created_at")
+	private Timestamp created_at;
+	@Column(name = "modified_at")
+	private Timestamp modified_at;
 	
-
 	
-
-	public int getId() {
-		return id;
+	public int getUser_id() {
+		return user_id;
 	}
-	
-	public void setId(int id) {
-		this.id = id;
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+	public Blob getUser_photo() {
+		return user_photo;
+	}
+	public void setUser_photo(Blob user_photo) {
+		this.user_photo = user_photo;
 	}
 	
 	public String getUser_photo_url() {
@@ -112,6 +123,18 @@ public class Users {
 		this.google_account = google_account;
 	}
 	
+	public Timestamp getCreated_at(){
+		return created_at;
+	}
+	public void setCreated_at(Timestamp created_at) {
+		this.created_at = created_at;
+	}
 	
+	public Timestamp getModified_at() {
+		return modified_at;
+	}
+	public void setModified_at(Timestamp modified_at) {
+		this.modified_at = modified_at;
+	}
 	
 }

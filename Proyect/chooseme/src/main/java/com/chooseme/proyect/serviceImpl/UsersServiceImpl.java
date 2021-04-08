@@ -1,12 +1,20 @@
 package com.chooseme.proyect.serviceImpl;
 
 import java.util.List;	
-import java.util.Optional;	
+import java.util.Optional;
+
+import org.hibernate.internal.util.MathHelper;
 import org.springframework.beans.factory.annotation.Autowired;	
-import org.springframework.stereotype.Service;	
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+
+import com.chooseme.proyect.dto.UsersRequest;
 import com.chooseme.proyect.entities.Users;	
 import com.chooseme.proyect.repository.UsersRepository;	
 import com.chooseme.proyect.service.UsersService;
+
+import utils.MHelpers;
 
 
 @Service
@@ -26,11 +34,10 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	@Override
-	public Users saveUsers(Users usersNew) {
-		if (usersNew != null) {
-			return usersRepository.save(usersNew);
-		}
-		return new Users();
+	public void saveUsers(UsersRequest usersNew) {
+		
+		Users users = MHelpers.modelmapper().map(usersNew, Users.class);
+		this.usersRepository.save(users);
 	}
 	
 	@Override
@@ -44,10 +51,10 @@ public class UsersServiceImpl implements UsersService {
 	
 	@Override
 	public String updateUsers(Users usersUpdated) {
-		int num = usersUpdated.getId();
+		int num = usersUpdated.getUser_id();
 		if(usersRepository.findById( num).isPresent()) {
 			Users usersToUpdate = new Users();
-			usersToUpdate.setId(usersUpdated.getId());
+			usersToUpdate.setUser_id(usersUpdated.getUser_id());
 			usersToUpdate.setUser_name(usersUpdated.getUser_name());
 			usersToUpdate.setEmail(usersUpdated.getEmail());
 			usersToUpdate.setPassword(usersUpdated.getPassword());

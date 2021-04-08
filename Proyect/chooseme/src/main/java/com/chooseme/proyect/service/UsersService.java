@@ -1,7 +1,9 @@
 package com.chooseme.proyect.service;
 
 import java.util.List;	
-import java.util.Optional;	
+import java.util.Optional;
+
+import com.chooseme.proyect.dto.UsersRequest;
 import com.chooseme.proyect.entities.Users;
 
 public interface UsersService {
@@ -9,7 +11,7 @@ public interface UsersService {
 	
 	public Optional<Users> findUsersById(int id);
 	
-	public Users saveUsers(Users usersNew);
+	void saveUsers(UsersRequest user);
 	
 	public String deleteUsers(int id);
 	
