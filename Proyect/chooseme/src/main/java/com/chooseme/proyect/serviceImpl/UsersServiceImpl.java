@@ -2,19 +2,11 @@ package com.chooseme.proyect.serviceImpl;
 
 import java.util.List;	
 import java.util.Optional;
-
-import org.hibernate.internal.util.MathHelper;
 import org.springframework.beans.factory.annotation.Autowired;	
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-
-import com.chooseme.proyect.dto.UsersRequest;
 import com.chooseme.proyect.entities.Users;	
 import com.chooseme.proyect.repository.UsersRepository;	
 import com.chooseme.proyect.service.UsersService;
-
-import utils.MHelpers;
 
 
 @Service
@@ -28,16 +20,19 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	@Override
-	public Optional<Users> findUsersById(int id) {
+	public Optional<Users> findUserById(int id) {
 		Optional <Users> users = usersRepository.findById( id);
 		return users;
 	}
 	
+
+	
 	@Override
-	public void saveUsers(UsersRequest usersNew) {
-		
-		Users users = MHelpers.modelmapper().map(usersNew, Users.class);
-		this.usersRepository.save(users);
+	public Users saveUser(Users usersNew) {
+		if (usersNew != null) {
+			return usersRepository.save(usersNew);
+		}
+		return new Users();
 	}
 	
 	@Override
@@ -67,9 +62,6 @@ public class UsersServiceImpl implements UsersService {
 		}
 		
 		return "Error al modificar el usuario";
-	}
-	
-	
-	
+	}	
 	
 }

@@ -1,117 +1,60 @@
 package com.chooseme.proyect.controllersImpl;
 
-
-import java.util.List;	
-import java.util.Optional;	
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;	
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;	
+import org.springframework.web.bind.annotation.RestController;
 import com.chooseme.proyect.controllers.UsersController;
-import com.chooseme.proyect.dto.UsersRequest;
 import com.chooseme.proyect.entities.Users;
-import com.chooseme.proyect.repository.UsersRepository;
 import com.chooseme.proyect.service.UsersService;
 
-/*@Controller // This means that this class is a Controller
-@RequestMapping(path="/testing") // This means URL's start with /demo (after Application path)
+@RestController
 public class UsersControllerImpl implements UsersController {
 	@Autowired
-	UsersService usersService;
-	
+	UsersService userService;
+
+	// http://localhost:8888/users (GET)
 	@RequestMapping(value = "/users", method = RequestMethod.GET, produces = "application/json")
 	@Override
-	public List<Users> getUsers(){
-		return usersService.findAllUsers();
+	public List<Users> getUsers() {
+		return userService.findAllUsers();
 	}
-	
+
+	// http://localhost:8888/users/1 (GET)
 	@Override
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET, produces = "application/json")
-	public Optional<Users> getUsersById(@PathVariable int id){
-		return usersService.findUsersById(id);
+	public Optional<Users> getUsersById(@PathVariable int id) {
+		return userService.findUserById(id);
 	}
+
+	// http://localhost:8080/users/add (ADD)
 	@Override
-	@RequestMapping(value = "/Users/add", method = RequestMethod.POST, produces = "application/json")		
-	public Users addUsers(Users users) {
-		return usersService.saveUsers(users);
+	@RequestMapping(value = "/users/add", method = RequestMethod.POST, produces = "application/json")
+	public Users addUsers(Users user) {
+		return userService.saveUser(user);
 	}
-	@Override		
-	@RequestMapping(value = "/users/delete/{id}", method = RequestMethod.GET, produces = "application/json")		
-	public String deleteUsers(@PathVariable int id) {			
-		return usersService.deleteUsers(id);
+
+	// http://localhost:8080/users/delete/1 (GET)
+	@Override
+	@RequestMapping(value = "/users/delete/{id}", method = RequestMethod.GET, produces = "application/json")
+	public String deleteUsers(@PathVariable int id) {
+		return userService.deleteUsers(id);
 	}
-	@Override		
-	@RequestMapping(value = "/usres/update", method = RequestMethod.PATCH, produces = "application/json")		
-	public String updateUsers(Users usersNew) {			
-		return usersService.updateUsers(usersNew);		
+
+	// http://localhost:8080/users/update (PATCH)
+	@Override
+	@RequestMapping(value = "/users/update", method = RequestMethod.PATCH, produces = "application/json")
+	public String updateUsers(Users userNew) {
+		return userService.updateUsers(userNew);
 	}
-	/*@RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json")		
-	@Override		
-	public String test() {			
-		return "Test done";		
-	}
-	@GetMapping(path="/test")
-	  public @ResponseBody String test() {
-	    return "Test done";
-	}
-	@GetMapping(path="/all")
-	  public @ResponseBody String getAllUsers() {
-	    return "Hola Mundo";
-	}*/
-@RestController
-@Controller // This means that this class is a Controller
-@RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
-public class UsersControllerImpl {
-	@Autowired
-	private UsersRepository userRepository;
-	UsersService usersService;
-	Users user;
-	
-	@PostMapping(path="/setusers")
-	public @ResponseBody String addNewUsers (@RequestParam String user_name,
-			@RequestParam String email) {
-		Users u = new Users();
-		u.setName(user_name);
-	    u.setEmail(email);
-	    userRepository.save(u);
-	    return "Saved";
-	}
-	@PostMapping(path="/users")
-	public @ResponseBody String getNewUser () {
-		Users u = new Users();
-		return u.getUser_name();
-		
-	}
-	
-	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET, produces = "application/json")
-	public Optional<Users> getUsersById(@PathVariable int id){
-		return usersService.findUsersById(id);
-	}
-	
-	
-	@GetMapping(path="/all")
-	public @ResponseBody Iterable<Users> getAllUsers() {
-		return userRepository.findAll();
-	}
-	
-	
-	@GetMapping(value = "/test")		
-	public @ResponseBody String test() {			
-		return "Test";
-	}
-	
-	@PostMapping(value="/save", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> saveUser(@RequestBody UsersRequest request){
-		return ResponseEntity.ok(this.usersService.saveUsers(user));
+
+	// http://localhost:8080/test (GET)
+	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json")
+	@Override
+	public String test() {
+		return "Test done";
 	}
 }
