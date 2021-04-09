@@ -2,6 +2,7 @@ package com.chooseme.proyect.validator;
 
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.chooseme.proyect.entities.Users;
@@ -13,7 +14,9 @@ public class UserValidatorComponent implements UserValidator {
 
 	@Override
 	public void validator(Users user) throws ApiUnprocessableEntity {
-
+		System.out.println("usuario: ");
+		System.out.println(user);
+		System.out.println(user.getUser_id());
 		if(user.getUser_name() == null || user.getUser_name().isEmpty()) {
 			message("El nombre de usuario es obligatorio");
 		}else if(user.getUser_name().length() <3) {
