@@ -2,11 +2,15 @@ package com.chooseme.proyect.serviceImpl;
 
 import java.util.List;	
 import java.util.Optional;
+
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;	
 import org.springframework.stereotype.Service;
 import com.chooseme.proyect.entities.Users;	
 import com.chooseme.proyect.repository.UsersRepository;	
 import com.chooseme.proyect.service.UsersService;
+
+import utils.BCrypt;
 
 
 @Service
@@ -29,6 +33,9 @@ public class UsersServiceImpl implements UsersService {
 	
 	@Override
 	public Users saveUser(Users usersNew) {
+		
+		usersNew.setPassword(BCrypt.hashpw(usersNew.getPassword(), BCrypt.gensalt()));
+		
 		if (usersNew != null) {
 			return usersRepository.save(usersNew);
 		}
