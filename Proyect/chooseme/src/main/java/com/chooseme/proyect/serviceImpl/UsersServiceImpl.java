@@ -1,9 +1,9 @@
 package com.chooseme.proyect.serviceImpl;
 
-import java.util.List;	
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;	
 import org.springframework.stereotype.Service;
 import com.chooseme.proyect.entities.Users;	
@@ -17,6 +17,8 @@ import utils.BCrypt;
 public class UsersServiceImpl implements UsersService {
 	@Autowired
 	UsersRepository usersRepository;
+	Users user;
+	
 	
 	@Override
 	public List<Users> findAllUsers() {
@@ -25,9 +27,32 @@ public class UsersServiceImpl implements UsersService {
 	
 	@Override
 	public Optional<Users> findUserById(int id) {
-		Optional <Users> users = usersRepository.findById( id);
+		Optional<Users> users = usersRepository.findById( id);
 		return users;
 	}
+	
+
+
+	@Override
+	public Users findUserByPass(String password, int id) {
+		user = null;
+		try {
+			user = usersRepository.findById(id).get();
+		}
+		
+		catch(NoSuchElementException ne) {
+		}
+		if(BCrypt.checkpw(password, user.getPassword()))
+		{
+			return user;
+		}
+		return null;
+		
+		
+		//return "La contrase;a coincide";
+		
+	}
+	
 	
 
 	
@@ -36,23 +61,28 @@ public class UsersServiceImpl implements UsersService {
 		
 		usersNew.setPassword(BCrypt.hashpw(usersNew.getPassword(), BCrypt.gensalt()));
 		
-		if (usersNew != null) {
-			return usersRepository.save(usersNew);
-		}
-		return new Users();
+		return usersRepository.save(usersNew);
 	}
 	
+
 	@Override
-	public String deleteUsers(int id) {
-		if(usersRepository.findById( id).isPresent()) {
-			usersRepository.deleteById( id);
-			return "Usuario eliminado";
+	public String deleteUsers(String pass, int id) {
+		user = findUserByPass(pass, id);
+		
+		if(user != null) {
+			user.setActive(0);;
+			return "Usuario ahora inactivo";
 		}
 		return "El usuario no existe";
 	}
 	
+	
+	
 	@Override
 	public String updateUsers(Users usersUpdated) {
+		
+		
+		
 		int num = usersUpdated.getUser_id();
 		if(usersRepository.findById( num).isPresent()) {
 			Users usersToUpdate = new Users();
@@ -67,6 +97,8 @@ public class UsersServiceImpl implements UsersService {
 			usersToUpdate.setPoints(usersUpdated.getPoints());
 			usersToUpdate.setGoogle_account(usersUpdated.getGoogle_account());
 		}
+		
+		
 		
 		return "Error al modificar el usuario";
 	}	
