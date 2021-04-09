@@ -70,7 +70,8 @@ public class UsersServiceImpl implements UsersService {
 		user = findUserByPass(pass, id);
 		
 		if(user != null) {
-			user.setActive(0);;
+			user.setActive(0);
+			usersRepository.save(user);
 			return "Usuario ahora inactivo";
 		}
 		return "El usuario no existe";
@@ -96,6 +97,8 @@ public class UsersServiceImpl implements UsersService {
 			usersToUpdate.setPhone(usersUpdated.getPhone());
 			usersToUpdate.setPoints(usersUpdated.getPoints());
 			usersToUpdate.setGoogle_account(usersUpdated.getGoogle_account());
+			
+			usersRepository.save(usersToUpdate);
 		}
 		
 		

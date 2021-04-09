@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity	
@@ -146,8 +147,9 @@ public class Users {
         Date date = new Date();
         long time = date.getTime();
         this.created_at = new Timestamp(time);
+        this.modified_at = new Timestamp(time);
     }
-
+	@PreUpdate
     public void preUpdate() {
     	 Date date = new Date();
          long time = date.getTime();
