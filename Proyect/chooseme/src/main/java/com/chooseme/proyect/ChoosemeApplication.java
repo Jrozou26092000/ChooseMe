@@ -16,7 +16,7 @@ public class ChoosemeApplication {
 	public static void main(String[] args) {
 		
 		
-		
+		/*inicia la aplicación*/
 		SpringApplication.run(ChoosemeApplication.class, args);
 		
 		

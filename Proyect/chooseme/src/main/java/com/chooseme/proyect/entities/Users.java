@@ -14,6 +14,12 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+/*
+ * Estructura de la entidad usuario con los datos en la base de datos
+ * cada dato refiere directamente a su parte en la db
+ * al final se encuentran las funciones para la generación automática de create_at y la actualización automatica
+ * de modified_at
+ */
 @Entity	
 @Table(name = "Users")
 public class Users {

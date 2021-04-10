@@ -14,9 +14,11 @@ public class UserValidatorComponent implements UserValidator {
 
 	@Override
 	public void validator(Users user) throws ApiUnprocessableEntity {
-		System.out.println("usuario: ");
-		System.out.println(user);
-		System.out.println(user.getUser_id());
+		
+		
+		/*
+		 * validación de datos y mensajes de error
+		 */
 		if(user.getUser_name() == null || user.getUser_name().isEmpty()) {
 			message("El nombre de usuario es obligatorio");
 		}else if(user.getUser_name().length() <3) {
@@ -37,7 +39,6 @@ public class UserValidatorComponent implements UserValidator {
 		}else if(user.getLastname().length() <3) {
 			message("El apellido debe tener al menos 3 caracteres");
 		}
-		
 		
 	}
 	

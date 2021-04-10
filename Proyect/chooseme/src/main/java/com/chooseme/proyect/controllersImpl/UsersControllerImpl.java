@@ -28,20 +28,32 @@ public class UsersControllerImpl implements UsersController {
 	@Autowired
 	UserValidatorComponent userValidator;
 
+	/*
+	 * funciones provicionales para traer datos al front
+	 * @RquestMapping genera la url de la cual se obtendrán los datos
+	 * en postman se llama a la dirección como get
+	 */
 	// http://localhost:8888/users (GET)
 	@RequestMapping(value = "/users", method = RequestMethod.GET, produces = "application/json")
 	@Override
 	public List<Users> getUsers() {
 		return userService.findAllUsers();
 	}
-
+	/*
+	 * @PathVariable es provicional, y captura datos desde la url
+	 * esto debe cambiar por un @RquestBody ya que permite insertar datos desde la url a cualquiera
+	 * esto es una falla de seguridad que causa inyecciones sql.
+	 */
 	// http://localhost:8888/users/1 (GET)
 	@Override
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET, produces = "application/json")
 	public Optional<Users> getUsersById(@PathVariable int id) {
 		return userService.findUserById(id);
 	}
-
+	/*
+	 * este permite capturar datos desde un body request raw json
+	 * para ver la estructura, consultar la carpeta donde se encuentran los archivos de postman
+	 */
 	// http://localhost:8080/users/add (ADD)
 	@Override
 	@PostMapping(value = "/users/add",  produces = MediaType.APPLICATION_JSON_VALUE)
@@ -49,13 +61,11 @@ public class UsersControllerImpl implements UsersController {
 
 		this.userValidator.validator(user);
 		
-
 		return userService.saveUser(user);
 		
 	}
-
+	
 	// http://localhost:8080/users/delete/1 (GET)
-
 	@Override
 	@RequestMapping(value = "/users/delete/{id}/{password}", method = RequestMethod.GET, produces = "application/json")
 	public String deleteUsers(@PathVariable String password, @PathVariable int id) {
