@@ -87,7 +87,169 @@
 			"response": []
 		},
 		{
-			"name": "CreateUsers Copy",
+			"name": "loggin with email and password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"juan@prk;uv\",\r\n    \"password\" : \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/loggin",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"loggin"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "usernamex",
+							"disabled": true
+						},
+						{
+							"key": "user_name",
+							"value": "psspruv7f",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "@com75k;fdsfdsaf",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "gabriela",
+							"disabled": true
+						},
+						{
+							"key": "active",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "pass",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "pruv",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "98765",
+							"disabled": true
+						},
+						{
+							"key": "points",
+							"value": "5689",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "show user by id",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\" : 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/findById",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"findById"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "usernamex",
+							"disabled": true
+						},
+						{
+							"key": "user_name",
+							"value": "psspruv7f",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "@com75k;fdsfdsaf",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "gabriela",
+							"disabled": true
+						},
+						{
+							"key": "active",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "pass",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "pruv",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "98765",
+							"disabled": true
+						},
+						{
+							"key": "points",
+							"value": "5689",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delet user with username and password",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -107,14 +269,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/users/loggin",
+					"raw": "localhost:8080/users/delete",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"users",
-						"loggin"
+						"delete"
 					],
 					"query": [
 						{
