@@ -15,7 +15,7 @@ public interface UsersController {
 	//busca un usuario por su id (user_id)
 	public Optional<Users> getUsersById(Users user);
 	//agrega un nuevo usuario a la db
-	public Users addUsers(Users users) throws ApiUnprocessableEntity;
+	boolean addUsers(Users user, String passwordcomp) throws ApiUnprocessableEntity;
 	//actualiza la informacion de usuario
 	public String updateUsers(Users usersNew);
 	//para testear la coneccion
@@ -25,6 +25,7 @@ public interface UsersController {
 	Boolean deleteUsers(Users user);
 	
 	Boolean loggin(Users userNew) throws ApiUnprocessableEntity;
+	
 
 
 

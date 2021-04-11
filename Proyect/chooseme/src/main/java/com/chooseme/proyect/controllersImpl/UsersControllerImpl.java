@@ -58,11 +58,16 @@ public class UsersControllerImpl implements UsersController {
 	// http://localhost:8080/users/add (ADD)
 	@Override
 	@PostMapping(value = "/users/add",  produces = MediaType.APPLICATION_JSON_VALUE)
-	public Users addUsers(@RequestBody Users user) throws ApiUnprocessableEntity {
+	public boolean addUsers(@RequestBody Users user, @RequestBody String passwordcomp) throws ApiUnprocessableEntity {
+		if(user.getPassword() == passwordcomp) {
+			this.userValidator.validator(user);
+			
+			userService.saveUser(user);
+			return true;
+		}else {
+			return false;
+		}
 
-		this.userValidator.validator(user);
-		
-		return userService.saveUser(user);
 		
 	}
 	
