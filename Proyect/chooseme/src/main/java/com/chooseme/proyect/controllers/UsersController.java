@@ -24,4 +24,6 @@ public interface UsersController {
 	public Users findPassword(String password, int id);
 	//borra un usuario, para realizar la operacion se requiere la contraseña del usuario
 	String deleteUsers(String password, int id);
+	
+	Boolean loggin(Users userNew) throws ApiUnprocessableEntity;
 }

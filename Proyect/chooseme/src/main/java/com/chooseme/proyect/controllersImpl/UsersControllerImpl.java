@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chooseme.proyect.controllers.UsersController;
 import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.service.UsersService;
+import com.chooseme.proyect.validator.UserLogginValidator;
 import com.chooseme.proyect.validator.UserValidatorComponent;
 
 import ch.qos.logback.classic.Logger;
@@ -27,6 +28,8 @@ public class UsersControllerImpl implements UsersController {
 	UsersService userService;
 	@Autowired
 	UserValidatorComponent userValidator;
+	@Autowired
+	UserLogginValidator logginValidator;
 
 	/*
 	 * funciones provicionales para traer datos al front
@@ -90,4 +93,24 @@ public class UsersControllerImpl implements UsersController {
 	public String test() {
 		return "Test done";
 	}
+	
+	
+	@Override
+	@PostMapping(value = "/users/loggin",  produces = MediaType.APPLICATION_JSON_VALUE)
+	public Boolean loggin(@RequestBody Users userNew) throws ApiUnprocessableEntity {
+		System.out.println("Test");
+		this.logginValidator.validatorLoggin(userNew);
+		System.out.println(userNew.getUser_name());
+		if(userService.logginUser(userNew)) {
+			System.out.println("password correcta");
+			return true;
+		}
+		
+		else {
+			System.out.println("password incorrecta");
+			return false;
+		}
+		
+	}
+	
 }

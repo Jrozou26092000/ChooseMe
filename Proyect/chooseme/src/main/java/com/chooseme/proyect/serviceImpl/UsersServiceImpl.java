@@ -18,6 +18,7 @@ public class UsersServiceImpl implements UsersService {
 	@Autowired
 	UsersRepository usersRepository;
 	Users user;
+	Users user_check;
 	
 	
 	@Override
@@ -105,5 +106,30 @@ public class UsersServiceImpl implements UsersService {
 		
 		return "Error al modificar el usuario";
 	}	
+
+	@Override
+	public Boolean logginUser(Users usersNew) {
+		
+
+		user_check = null;
+
+		System.out.println("Test");
+		System.out.println(usersNew.getUser_name());
+		try {
+			user_check = usersRepository.getUserByUsername(usersNew.getUser_name());
+		}
+		
+		catch(NoSuchElementException ne) {
+		}
+		if(BCrypt.checkpw(usersNew.getPassword(), user_check.getPassword()))
+		{
+			return true;
+		}else {
+			return false;
+		}
+		
+		
+	}
+
 	
 }

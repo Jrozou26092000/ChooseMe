@@ -22,4 +22,8 @@ public interface UsersService {
 	Users findUserByPass(String password, int id);
 	//borra un usuario ingresando su contraseña y su id
 	String deleteUsers(String pass, int id);
+	
+
+	public Boolean logginUser(Users userNew);
+
 }
