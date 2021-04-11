@@ -56,7 +56,7 @@ public class UsersControllerImpl implements UsersController {
 	 * para ver la estructura, consultar la carpeta donde se encuentran los archivos de postman
 	 */
 	// http://localhost:8080/users/add (ADD)
-	@Override
+	/*@Override
 	@PostMapping(value = "/users/add",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public boolean addUsers(@RequestBody Users user, @RequestBody String passwordcomp) throws ApiUnprocessableEntity {
 		if(user.getPassword() == passwordcomp) {
@@ -69,6 +69,15 @@ public class UsersControllerImpl implements UsersController {
 		}
 
 		
+	}*/
+	
+	@Override
+	@PostMapping(value = "/users/add",  produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean addUsers(@RequestBody Users user) throws ApiUnprocessableEntity {
+
+		this.userValidator.validator(user);
+		userService.saveUser(user);
+		return false;
 	}
 	
 	// http://localhost:8080/users/delete/1 (GET)
