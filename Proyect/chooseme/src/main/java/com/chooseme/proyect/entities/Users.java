@@ -11,8 +11,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+/*
+ * Estructura de la entidad usuario con los datos en la base de datos
+ * cada dato refiere directamente a su parte en la db
+ * al final se encuentran las funciones para la generación automática de create_at y la actualización automatica
+ * de modified_at
+ */
 @Entity	
 @Table(name = "Users")
 public class Users {
@@ -146,8 +153,9 @@ public class Users {
         Date date = new Date();
         long time = date.getTime();
         this.created_at = new Timestamp(time);
+        this.modified_at = new Timestamp(time);
     }
-
+	@PreUpdate
     public void preUpdate() {
     	 Date date = new Date();
          long time = date.getTime();
