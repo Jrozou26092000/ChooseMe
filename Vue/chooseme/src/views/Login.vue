@@ -8,7 +8,7 @@
                 align="center"
             >   
 
-            <b-form v-if="show">
+            <b-form @submit="onLogin" v-if="show">
                 <b-form-group
                     id="input-group-1"
                     label="Correo electrónico:"
@@ -32,9 +32,9 @@
                     required
                     ></b-form-input>
                 </b-form-group>
+                <b-button type="submit" variant="secondary">Log In</b-button>
             </b-form>
 
-            <b-button v-on:click="onLogin" variant="secondary">Log In</b-button>
                 <template #footer>
                     <small class="text-muted">¿Aún no tienes cuenta? Resgístrate aquí.</small>
                 </template>
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+  import axios from 'axios';
   export default {
     data() {
       return {
@@ -60,6 +61,16 @@
     methods: {
       onLogin(event) {
         event.preventDefault()
+        // API REST
+        let json = {
+          "email": this.form.email,
+          "password": this.form.password
+        };
+        axios.post('http://localhost:8080/users/loggin',json).then(
+          data => {
+            console.log(data);
+          }
+        )
         // Reset our form values
         this.form.email = ''
         this.form.password = ''
