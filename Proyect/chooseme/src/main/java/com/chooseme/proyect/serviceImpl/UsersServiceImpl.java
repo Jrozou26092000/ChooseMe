@@ -18,6 +18,7 @@ public class UsersServiceImpl implements UsersService {
 	@Autowired
 	UsersRepository usersRepository;
 	Users user;
+	Optional<Users> iduser_check;
 	Users user_check;
 	
 	
@@ -27,34 +28,15 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	@Override
-	public Optional<Users> findUserById(int id) {
-		Optional<Users> users = usersRepository.findById( id);
-		return users;
+	public Optional<Users> findUserById(Users user) {
+		iduser_check = null;
+		int id = user.getUser_id();
+		
+		iduser_check =  usersRepository.findById( id);
+		return iduser_check;
 	}
 	
 
-
-	@Override
-	public Users findUserByPass(String password, int id) {
-		user = null;
-		try {
-			user = usersRepository.findById(id).get();
-		}
-		
-		catch(NoSuchElementException ne) {
-		}
-		if(BCrypt.checkpw(password, user.getPassword()))
-		{
-			return user;
-		}
-		return null;
-		
-		
-		//return "La contrase;a coincide";
-		
-	}
-	
-	
 
 	
 	@Override
@@ -67,17 +49,22 @@ public class UsersServiceImpl implements UsersService {
 	
 
 	@Override
-	public String deleteUsers(String pass, int id) {
-		user = findUserByPass(pass, id);
-		
-		if(user != null) {
-			user.setActive(0);
-			usersRepository.save(user);
-			return "Usuario ahora inactivo";
-		}
-		return "El usuario no existe";
-	}
-	
+    public Boolean deleteUsers(Users userDelete) {
+        user = null;
+        try {
+            user = usersRepository.getUserByUsername(userDelete.getUser_name());
+            if(BCrypt.checkpw(userDelete.getPassword(), user.getPassword()))            {
+                System.out.print("Entramos al if");
+                user.setActive(0);
+                usersRepository.save(user);
+                return true;
+            }
+        }
+        catch(NoSuchElementException ne) {
+        }
+
+        return false;
+    }
 	
 	
 	@Override
@@ -113,10 +100,9 @@ public class UsersServiceImpl implements UsersService {
 
 		user_check = null;
 
-		System.out.println("Test");
-		System.out.println(usersNew.getUser_name());
+
 		try {
-			user_check = usersRepository.getUserByUsername(usersNew.getUser_name());
+			user_check = usersRepository.getUserByEmail(usersNew.getEmail());
 		}
 		
 		catch(NoSuchElementException ne) {
