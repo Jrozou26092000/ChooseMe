@@ -3,6 +3,7 @@ package com.chooseme.proyect.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.chooseme.proyect.entities.NewUsers;
 import com.chooseme.proyect.entities.Users;
 /*
  * interface para la implementación de la clase service
@@ -13,7 +14,7 @@ public interface UsersService {
 	// Busca un usuario por su id
 	public Optional<Users> findUserById(Users user);
 	// Crea un nuevo usuario de tipo usuario
-	public Users saveUser(Users userNew);
+	//public Users saveUser(Users usersNew);
 	// Actrualiza el usuario existente
 	public String updateUsers(Users userNew);
 
@@ -21,7 +22,10 @@ public interface UsersService {
 
 
 	public Boolean logginUser(Users userNew);
-	Boolean deleteUsers(Users userDelete);
+	public Boolean deleteUsers(Users userDelete);
+	Users saveUser(Users usersNew);
+;
+
 
 
 

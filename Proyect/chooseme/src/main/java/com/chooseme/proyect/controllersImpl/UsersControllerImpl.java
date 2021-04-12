@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.chooseme.proyect.controllers.UsersController;
+import com.chooseme.proyect.entities.NewUsers;
 import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.service.UsersService;
 import com.chooseme.proyect.validator.UserLogginValidator;
 import com.chooseme.proyect.validator.UserValidatorComponent;
 
-
+import utils.BCrypt;
 import utils.Exceptions.ApiUnprocessableEntity;
 
 @RestController
@@ -28,7 +29,7 @@ public class UsersControllerImpl implements UsersController {
 	UserValidatorComponent userValidator;
 	@Autowired
 	UserLogginValidator logginValidator;
-
+	
 	/*
 	 * funciones provicionales para traer datos al front
 	 * @RquestMapping genera la url de la cual se obtendrán los datos
@@ -55,34 +56,36 @@ public class UsersControllerImpl implements UsersController {
 	 * este permite capturar datos desde un body request raw json
 	 * para ver la estructura, consultar la carpeta donde se encuentran los archivos de postman
 	 */
+
+
 	// http://localhost:8080/users/add (ADD)
-	/*@Override
+	@Override
 	@PostMapping(value = "/users/add",  produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean addUsers(@RequestBody Users user, @RequestBody String passwordcomp) throws ApiUnprocessableEntity {
-		if(user.getPassword() == passwordcomp) {
-			this.userValidator.validator(user);
-			
-			userService.saveUser(user);
-			return true;
-		}else {
-			return false;
-		}
+	public boolean addUsers(@RequestBody Users newusers) throws ApiUnprocessableEntity {
+
+		System.out.println(newusers.getPasstemp());
+		System.out.println(newusers.getPassword());
+
+		this.userValidator.validator(newusers);
+		
+		userService.saveUser(newusers);
+		return true;
 
 		
-	}*/
+	}
 	
-	@Override
+	/*@Override
 	@PostMapping(value = "/users/add",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public boolean addUsers(@RequestBody Users user) throws ApiUnprocessableEntity {
 
 		this.userValidator.validator(user);
 		userService.saveUser(user);
 		return false;
-	}
+	}*/
 	
 	// http://localhost:8080/users/delete/1 (GET)
 	@Override
-    @RequestMapping(value = "/users/delete", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/users/delete", produces = MediaType.APPLICATION_JSON_VALUE)
     public Boolean deleteUsers(@RequestBody Users user) {
         return userService.deleteUsers(user);
     }
@@ -104,7 +107,7 @@ public class UsersControllerImpl implements UsersController {
 	
 	
 	@Override
-	@PostMapping(value = "/users/loggin",  produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/users/loggin",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Boolean loggin(@RequestBody Users userNew) throws ApiUnprocessableEntity {
 		
 		this.logginValidator.validatorLoggin(userNew);

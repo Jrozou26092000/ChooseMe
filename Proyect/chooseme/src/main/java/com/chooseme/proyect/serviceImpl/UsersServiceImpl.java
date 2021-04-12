@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;	
 import org.springframework.stereotype.Service;
+
+import com.chooseme.proyect.entities.NewUsers;
 import com.chooseme.proyect.entities.Users;	
 import com.chooseme.proyect.repository.UsersRepository;	
 import com.chooseme.proyect.service.UsersService;
@@ -38,11 +40,24 @@ public class UsersServiceImpl implements UsersService {
 	
 
 
-	
+
 	@Override
 	public Users saveUser(Users usersNew) {
-		
+		//Users usersToUpdate = new Users();
 		usersNew.setPassword(BCrypt.hashpw(usersNew.getPassword(), BCrypt.gensalt()));
+		/*usersToUpdate.setUser_id(usersNew.getUser_id());
+		usersToUpdate.setUser_name(usersNew.getUser_name());
+		usersToUpdate.setEmail(usersNew.getEmail());
+		usersToUpdate.setPassword(usersNew.getPassword());
+		usersToUpdate.setActive(usersNew.getActive());
+		usersToUpdate.setName(usersNew.getName());
+		usersToUpdate.setLastname(usersNew.getLastname());
+		usersToUpdate.setPhone(usersNew.getPhone());
+		usersToUpdate.setPoints(usersNew.getPoints());
+		usersToUpdate.setGoogle_account(usersNew.getGoogle_account());
+		*/
+		
+		
 		
 		return usersRepository.save(usersNew);
 	}
