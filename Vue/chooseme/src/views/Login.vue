@@ -34,14 +34,17 @@
                 </b-form-group>
                 <b-button type="submit" variant="secondary">Log In</b-button>
             </b-form>
-
+            <b-alert show variant="success" v-if="loggedin" p-5>Inicio de de sesión exitosa.</b-alert>
+            
                 <template #footer>
-                    <small class="text-muted">¿Aún no tienes cuenta? Resgístrate aquí.</small>
+                    <small class="text-muted">¿Aún no tienes cuenta? Resgístrate 
+                      <b-link to="/signin">aquí</b-link>.
+                    </small>
                 </template>
             </b-card>
-            <b-card class="mt-3" header="Form Data Result">
+            <!-- <b-card class="mt-3" header="Form Data Result">
                 <pre class="m-0">{{ form }}</pre>
-            </b-card>
+            </b-card> -->
         </b-container>
     </div>
 </template>
@@ -55,7 +58,8 @@
             email: '',
             password: ''
         },
-        show: true
+        show: true, 
+        loggedin: false
       }
     },
     methods: {
@@ -68,7 +72,12 @@
         };
         axios.post('http://localhost:8080/users/loggin',json).then(
           data => {
-            console.log(data);
+            if(data){
+              console.log('Logged in!');
+              this.loggedin = true;
+            }else{
+              console.log('Email or password incorrect');
+            }
           }
         )
         // Reset our form values

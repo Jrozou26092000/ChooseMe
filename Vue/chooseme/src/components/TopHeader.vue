@@ -6,7 +6,7 @@
             <b-collapse id="nav-collapse" is-nav>    
                 <b-navbar-nav class="ml-auto">
                     <b-nav-item right to="/login">Log In</b-nav-item> 
-                    <b-nav-item right>Sign In</b-nav-item>        
+                    <b-nav-item right to="/signin">Sign In</b-nav-item>        
                     <b-nav-item right to="/about">Conócemos</b-nav-item>
               </b-navbar-nav>
             </b-collapse>
