@@ -85,7 +85,7 @@ public class UsersControllerImpl implements UsersController {
 	
 	// http://localhost:8080/users/delete/1 (GET)
 	@Override
-    @RequestMapping(value = "/users/delete", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/users/delete", produces = MediaType.APPLICATION_JSON_VALUE)
     public Boolean deleteUsers(@RequestBody Users user) {
         return userService.deleteUsers(user);
     }
