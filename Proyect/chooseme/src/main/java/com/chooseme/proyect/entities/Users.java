@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /*
  * Estructura de la entidad usuario con los datos en la base de datos
@@ -55,6 +56,15 @@ public class Users {
 	private Timestamp created_at;
 	@Column(name = "modified_at")
 	private Timestamp modified_at;
+	@Transient
+	private String passtemp;
+	
+	public String getPasstemp() {
+		return passtemp;
+	}
+	public void setPasstemp(String passtemp) {
+		this.passtemp = passtemp;
+	}
 	
 	
 	public int getUser_id() {
