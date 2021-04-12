@@ -11,8 +11,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+/*
+ * Estructura de la entidad usuario con los datos en la base de datos
+ * cada dato refiere directamente a su parte en la db
+ * al final se encuentran las funciones para la generación automática de create_at y la actualización automatica
+ * de modified_at
+ */
 @Entity	
 @Table(name = "Users")
 public class Users {
@@ -48,6 +56,15 @@ public class Users {
 	private Timestamp created_at;
 	@Column(name = "modified_at")
 	private Timestamp modified_at;
+	@Transient
+	private String passtemp;
+	
+	public String getPasstemp() {
+		return passtemp;
+	}
+	public void setPasstemp(String passtemp) {
+		this.passtemp = passtemp;
+	}
 	
 	
 	public int getUser_id() {
@@ -146,8 +163,9 @@ public class Users {
         Date date = new Date();
         long time = date.getTime();
         this.created_at = new Timestamp(time);
+        this.modified_at = new Timestamp(time);
     }
-
+	@PreUpdate
     public void preUpdate() {
     	 Date date = new Date();
          long time = date.getTime();
