@@ -107,7 +107,7 @@ public class UsersControllerImpl implements UsersController {
 	
 	
 	@Override
-	@PostMapping(value = "/users/loggin",  produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/users/loggin",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Boolean loggin(@RequestBody Users userNew) throws ApiUnprocessableEntity {
 		
 		this.logginValidator.validatorLoggin(userNew);
